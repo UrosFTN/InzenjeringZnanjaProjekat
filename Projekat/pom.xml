@@ -37,6 +37,15 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jFuzzyLogic.jar</systemPath>
         </dependency>
+        
+        <!-- jCOLIBRI for case-based reasoning - local JAR -->
+        <dependency>
+            <groupId>es.ucm.fdi</groupId>
+            <artifactId>jcolibri</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jCOLIBRI-3.0.jar</systemPath>
+        </dependency>
     </dependencies>
 
    

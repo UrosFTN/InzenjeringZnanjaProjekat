@@ -44,7 +44,8 @@ public class SparqlQueryService {
         String sparqlQuery = 
             "PREFIX : <" + namespace + ">" +
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-            "SELECT ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime WHERE {" +
+            "SELECT ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime " +
+            "(GROUP_CONCAT(DISTINCT ?zanrLabel; separator=\", \") AS ?sviZanrovi) WHERE {" +
             "  ?film a :Film ." +
             "  ?film :naslov ?naslov ." +
             "  ?film :godinaIzdanja ?godina ." +
@@ -53,8 +54,8 @@ public class SparqlQueryService {
             "  OPTIONAL { ?film :rezirao ?reziserObj . ?reziserObj :licnoIme ?reziserIme . ?reziserObj :prezime ?reziserPrezime }" +
             "  ?film :imaZanr ?zanrObj ." +
             "  ?zanrObj rdfs:label ?zanrLabel ." +
-            "  FILTER(LCASE(str(?zanrLabel)) = LCASE(\"" + zanr + "\"))" +
-            "}";
+            "  FILTER(EXISTS { ?film :imaZanr ?testZanr . ?testZanr rdfs:label ?testLabel . FILTER(LCASE(str(?testLabel)) = LCASE(\"" + zanr + "\")) })" +
+            "} GROUP BY ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime";
         
         return executeQuery(sparqlQuery);
     }
@@ -70,7 +71,8 @@ public class SparqlQueryService {
             "PREFIX : <" + namespace + ">" +
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
             "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" +
-            "SELECT ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime WHERE {" +
+            "SELECT ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime " +
+            "(GROUP_CONCAT(DISTINCT ?zanrLabel; separator=\", \") AS ?sviZanrovi) WHERE {" +
             "  ?film a :Film ." +
             "  ?film :naslov ?naslov ." +
             "  ?film :godinaIzdanja ?godina ." +
@@ -79,9 +81,9 @@ public class SparqlQueryService {
             "  OPTIONAL { ?film :rezirao ?reziserObj . ?reziserObj :licnoIme ?reziserIme . ?reziserObj :prezime ?reziserPrezime }" +
             "  ?film :imaZanr ?zanrObj ." +
             "  ?zanrObj rdfs:label ?zanrLabel ." +
-            "  FILTER(LCASE(str(?zanrLabel)) = LCASE(\"" + zanr + "\"))" +
+            "  FILTER(EXISTS { ?film :imaZanr ?testZanr . ?testZanr rdfs:label ?testLabel . FILTER(LCASE(str(?testLabel)) = LCASE(\"" + zanr + "\")) })" +
             "  FILTER(xsd:int(?godina) = " + godina + ")" +
-            "}";
+            "} GROUP BY ?film ?naslov ?godina ?trajanje ?budzet ?reziserIme ?reziserPrezime";
         
         return executeQuery(sparqlQuery);
     }
@@ -108,9 +110,10 @@ public class SparqlQueryService {
                 String trajanje = getStringValue(solution, "trajanje");
                 String budzet = getStringValue(solution, "budzet");
                 String reziser = buildDirectorName(solution);
+                String zanrovi = getStringValue(solution, "sviZanrovi");
                 
                 // Kreira rezultat sa prikupljenim podacima
-                FilmResult result = new FilmResult(naslov, godina, trajanje, budzet, reziser);
+                FilmResult result = new FilmResult(naslov, godina, trajanje, budzet, reziser, zanrovi);
                 results.add(result);
             }
             

@@ -14,30 +14,31 @@ public class TableFormatter {
             return;
         }
         
-        // Definise širine kolona
+        // Definise širine kolona - dodana kolona za žanrove
         int naslowWidth = Math.max(15, getMaxLength(filmovi, "naslov"));
-        int godinaWidth = 8;
+        int zanroviWidth = Math.max(12, getMaxLength(filmovi, "zanrovi"));
+        int godinaWidth = 6;
         int rezieerWidth = Math.max(12, getMaxLength(filmovi, "reziser"));
-        int trajanjeWidth = 10;
-        int budzetWidth = 15;
+        int trajanjeWidth = 8;
+        int budzetWidth = 12;
         
         // Printa header tabele
-        printSeparator(naslowWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
-        printRow("NASLOV", "GODINA", "REZISER", "TRAJANJE", "BUDZET", 
-                naslowWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
-        printSeparator(naslowWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
+        printSeparator(naslowWidth, zanroviWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
+        printRow("NASLOV", "ŽANROVI", "GODINA", "REŽISER", "TRAJANJE", "BUDŽET", 
+                naslowWidth, zanroviWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
+        printSeparator(naslowWidth, zanroviWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
         
         // Printa svaki red sa podacima filma
         for (FilmResult film : filmovi) {
             String trajanje = formatTrajanje(film.getTrajanje());
             String budzet = formatBudzet(film.getBudzet());
             
-            printRow(film.getNaslov(), film.getGodina(), film.getReziser(), 
-                    trajanje, budzet, naslowWidth, godinaWidth, rezieerWidth, 
+            printRow(film.getNaslov(), film.getZanrovi(), film.getGodina(), film.getReziser(), 
+                    trajanje, budzet, naslowWidth, zanroviWidth, godinaWidth, rezieerWidth, 
                     trajanjeWidth, budzetWidth);
         }
         
-        printSeparator(naslowWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
+        printSeparator(naslowWidth, zanroviWidth, godinaWidth, rezieerWidth, trajanjeWidth, budzetWidth);
         System.out.println("Ukupno pronađeno: " + filmovi.size() + " filmova");
     }
     
@@ -56,17 +57,18 @@ public class TableFormatter {
     }
     
     /**
-     * Printa jedan red tabele sa podacima
+     * Printa jedan red tabele sa podacima - dodana kolona za žanrove
      */
-    private static void printRow(String naslov, String godina, String reziser, 
+    private static void printRow(String naslov, String zanrovi, String godina, String reziser, 
                                 String trajanje, String budzet, int... widths) {
-        System.out.printf("| %-" + widths[0] + "s | %-" + widths[1] + "s | %-" + 
-                         widths[2] + "s | %-" + widths[3] + "s | %-" + widths[4] + "s |%n",
+        System.out.printf("| %-" + widths[0] + "s | %-" + widths[1] + "s | %-" + widths[2] + "s | %-" + 
+                         widths[3] + "s | %-" + widths[4] + "s | %-" + widths[5] + "s |%n",
                          truncate(naslov, widths[0]), 
-                         truncate(godina, widths[1]), 
-                         truncate(reziser, widths[2]),
-                         truncate(trajanje, widths[3]), 
-                         truncate(budzet, widths[4]));
+                         truncate(zanrovi, widths[1]),
+                         truncate(godina, widths[2]), 
+                         truncate(reziser, widths[3]),
+                         truncate(trajanje, widths[4]), 
+                         truncate(budzet, widths[5]));
     }
     
     /**
@@ -88,6 +90,7 @@ public class TableFormatter {
                     switch (field) {
                         case "naslov": return film.getNaslov().length();
                         case "reziser": return film.getReziser().length();
+                        case "zanrovi": return film.getZanrovi().length();
                         default: return 0;
                     }
                 })
