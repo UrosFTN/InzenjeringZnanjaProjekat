@@ -1,6 +1,5 @@
 FUNCTION_BLOCK film_kvalitet
 
-// Definicije ulaznih promenljivih
 VAR_INPUT
     rezija : REAL;
     gluma : REAL;
@@ -9,7 +8,6 @@ VAR_INPUT
     vizuelni_efekti : REAL;
 END_VAR
 
-// Definicija izlazne promenljive
 VAR_OUTPUT
     kvalitet : REAL;
 END_VAR
@@ -62,51 +60,39 @@ RULEBLOCK pravila
     ACT : MIN;
     ACCU : MAX;
 
-    // Pravilo 1: Sve odlično -> odličan film
     RULE 1 : IF rezija IS odlicna AND gluma IS odlicna AND scenario IS odlicna 
              THEN kvalitet IS odlican;
 
-    // Pravilo 2: Većina odlična -> odličan film
     RULE 2 : IF rezija IS odlicna AND gluma IS odlicna AND originalnost IS odlicna 
              THEN kvalitet IS odlican;
 
-    // Pravilo 3: Kombinacija odličnog i dobrog -> dobar film
     RULE 3 : IF rezija IS odlicna AND gluma IS dobra AND scenario IS dobra 
              THEN kvalitet IS dobar;
 
-    // Pravilo 4: Većina dobra -> dobar film
     RULE 4 : IF rezija IS dobra AND gluma IS dobra AND scenario IS dobra 
              THEN kvalitet IS dobar;
 
-    // Pravilo 5: Odlična originalnost i režija kompenzuju ostalo
     RULE 5 : IF originalnost IS odlicna AND rezija IS odlicna 
              THEN kvalitet IS dobar;
 
-    // Pravilo 6: Loš scenario kvari film
     RULE 6 : IF scenario IS losa AND gluma IS losa 
              THEN kvalitet IS slab;
 
-    // Pravilo 7: Loša režija značajno utiče
     RULE 7 : IF rezija IS losa AND scenario IS losa 
              THEN kvalitet IS los;
 
-    // Pravilo 8: Mix dobrog i lošeg -> prosečan
     RULE 8 : IF rezija IS dobra AND gluma IS losa AND scenario IS dobra 
              THEN kvalitet IS prosecan;
 
-    // Pravilo 9: Odlični vizuelni efekti mogu podići ocenu
     RULE 9 : IF vizuelni_efekti IS odlicna AND originalnost IS dobra 
              THEN kvalitet IS dobar;
 
-    // Pravilo 10: Sve loše -> loš film
     RULE 10 : IF rezija IS losa AND gluma IS losa AND scenario IS losa 
               THEN kvalitet IS los;
 
-    // Pravilo 11: Većina prosečna -> prosečan film
     RULE 11 : IF rezija IS dobra AND gluma IS dobra AND scenario IS losa 
               THEN kvalitet IS prosecan;
-
-    // Pravilo 12: Odlična gluma može spasiti prosečan film
+              
     RULE 12 : IF gluma IS odlicna AND scenario IS dobra 
               THEN kvalitet IS dobar;
 

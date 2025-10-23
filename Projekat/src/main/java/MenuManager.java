@@ -1,9 +1,6 @@
 import java.util.Scanner;
 import java.util.List;
 
-/**
- * Klasa za upravljanje menijima aplikacije
- */
 public class MenuManager {
     
     private Scanner scanner;
@@ -11,9 +8,6 @@ public class MenuManager {
     private FuzzyEvaluationService fuzzyService;
     private CbrRecommendationService cbrService;
     
-    /**
-     * Konstruktor - inicijalizuje servise
-     */
     public MenuManager() {
         this.scanner = new Scanner(System.in);
         this.sparqlService = new SparqlQueryService();
@@ -21,9 +15,6 @@ public class MenuManager {
         this.cbrService = new CbrRecommendationService();
     }
     
-    /**
-     * Prikazuje glavni meni i upravlja navigacijom
-     */
     public void showMainMenu() {
         boolean running = true;
         
@@ -53,9 +44,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Prikazuje meni za preporuke filmova
-     */
     private void showRecommendationMenu() {
         boolean inSubmenu = true;
         
@@ -81,9 +69,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Prikazuje meni za fuzzy evaluaciju
-     */
     private void showFuzzyEvaluationMenu() {
         boolean inSubmenu = true;
         
@@ -106,9 +91,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Izvršava pretragu filmova po žanru
-     */
     private void searchByGenre() {
         System.out.println("\n--- PRETRAGA PO ŽANRU ---");
         String zanr = getGenreInput();
@@ -122,9 +104,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Izvršava pretragu filmova po žanru i godini
-     */
     private void searchByGenreAndYear() {
         System.out.println("\n--- PRETRAGA PO ŽANRU I GODINI ---");
         String zanr = getGenreInput();
@@ -139,9 +118,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Izvršava fuzzy evaluaciju kvaliteta filma
-     */
     private void evaluateFilmQuality() {
         System.out.println("\n--- FUZZY EVALUACIJA KVALITETA FILMA ---");
         System.out.println("Ocenite sledeće kriterijume na skali od 1 do 10:");
@@ -153,11 +129,9 @@ public class MenuManager {
             double originalnost = getCriteriaInput("Originalnost");
             double vizuelniEfekti = getCriteriaInput("Vizuelni efekti");
             
-            // Izvršava fuzzy evaluaciju
             FuzzyEvaluationService.FuzzyResult result = 
                 fuzzyService.evaluateFilm(rezija, gluma, scenario, originalnost, vizuelniEfekti);
             
-            // Prikazuje rezultat
             System.out.println("\n" + "=".repeat(40));
             System.out.println("REZULTAT EVALUACIJE:");
             System.out.println("Kvalitet filma: " + result.getFormattedResult());
@@ -168,9 +142,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Printa header glavnog menija
-     */
     private void printMainMenuHeader() {
         System.out.println("\n" + "=".repeat(50));
         System.out.println("       SISTEM PREPORUKE I OCENE FILMOVA");
@@ -183,9 +154,6 @@ public class MenuManager {
         System.out.print("Izaberite opciju (1-4): ");
     }
     
-    /**
-     * Printa header menija za preporuke
-     */
     private void printRecommendationMenuHeader() {
         System.out.println("\n" + "=".repeat(40));
         System.out.println("         PREPORUKE FILMOVA");
@@ -196,10 +164,7 @@ public class MenuManager {
         System.out.println("=".repeat(40));
         System.out.print("Izaberite opciju (1-3): ");
     }
-    
-    /**
-     * Printa header menija za fuzzy evaluaciju
-     */
+
     private void printFuzzyMenuHeader() {
         System.out.println("\n" + "=".repeat(40));
         System.out.println("         FUZZY OCENJIVANJE");
@@ -209,10 +174,7 @@ public class MenuManager {
         System.out.println("=".repeat(40));
         System.out.print("Izaberite opciju (1-2): ");
     }
-    
-    /**
-     * Prikazuje meni za CBR preporuke
-     */
+
     private void showCbrRecommendationMenu() {
         boolean inSubmenu = true;
         
@@ -234,10 +196,7 @@ public class MenuManager {
             }
         }
     }
-    
-    /**
-     * Printa header menija za CBR preporuke
-     */
+
     private void printCbrMenuHeader() {
         System.out.println("\n" + "=".repeat(40));
         System.out.println("         CBR PREPORUKE");
@@ -248,14 +207,10 @@ public class MenuManager {
         System.out.print("Izaberite opciju (1-2): ");
     }
     
-    /**
-     * Izvršava CBR preporuke sličnih filmova
-     */
     private void findSimilarMovies() {
         System.out.println("\n--- CBR PREPORUKE SLIČNIH FILMOVA ---");
         
         try {
-            // Dobija listu svih filmova
             List<MovieCase> allMovies = cbrService.getAllMovies();
             
             if (allMovies.isEmpty()) {
@@ -263,26 +218,22 @@ public class MenuManager {
                 return;
             }
             
-            // Prikazuje listu filmova za izbor
             System.out.println("\n=== DOSTUPNI FILMOVI ===");
             for (int i = 0; i < allMovies.size(); i++) {
                 MovieCase movie = allMovies.get(i);
                 System.out.printf("%d. %s (%d) - %s [%s]\n", 
                                 i + 1, movie.getNaslov(), movie.getGodina(), 
-                                movie.getReziser(), movie.getSviZanrovi()); // prikaži sve žanrove
+                                movie.getReziser(), movie.getSviZanrovi()); 
             }
             
-            // Traži izbor korisnika
             int selectedIndex = getMovieChoice(allMovies.size()) - 1;
             MovieCase selectedMovie = allMovies.get(selectedIndex);
             
             System.out.println("\nTražim filmove slične sa: " + selectedMovie.getNaslov());
             
-            // Izvršava CBR preporuku
             List<CbrRecommendationService.MovieRecommendation> recommendations = 
                 cbrService.findSimilarMovies(selectedMovie.getId());
             
-            // Prikazuje rezultate u tabeli
             printCbrRecommendationsTable(recommendations);
             
         } catch (Exception e) {
@@ -290,9 +241,6 @@ public class MenuManager {
         }
     }
     
-    /**
-     * Prikazuje CBR preporuke u tabela formatu
-     */
     private void printCbrRecommendationsTable(List<CbrRecommendationService.MovieRecommendation> recommendations) {
         if (recommendations.isEmpty()) {
             System.out.println("Nema sličnih filmova.");
@@ -301,24 +249,21 @@ public class MenuManager {
         
         System.out.println("\n=== SLIČNI FILMOVI ===");
         
-        // Definiše širine kolona - dodao žanr kolonu
         int naslovWidth = 18;
         int zanrWidth = 12;
         int godinaWidth = 6;
         int reziserWidth = 15;
         int similarityWidth = 10;
         
-        // Printa header
         printCbrSeparator(naslovWidth, zanrWidth, godinaWidth, reziserWidth, similarityWidth);
         printCbrRow("NASLOV", "ŽANR", "GODINA", "REŽISER", "SLIČNOST", 
                    naslovWidth, zanrWidth, godinaWidth, reziserWidth, similarityWidth);
         printCbrSeparator(naslovWidth, zanrWidth, godinaWidth, reziserWidth, similarityWidth);
         
-        // Printa svaki red
         for (CbrRecommendationService.MovieRecommendation rec : recommendations) {
             MovieCase movie = rec.getMovieCase();
             printCbrRow(movie.getNaslov(),
-                       movie.getSviZanrovi(), // prikaži sve žanrove umesto samo glavnog
+                       movie.getSviZanrovi(), 
                        movie.getGodina().toString(),
                        movie.getReziser(),
                        rec.getFormattedSimilarity(),
@@ -327,13 +272,8 @@ public class MenuManager {
         
         printCbrSeparator(naslovWidth, zanrWidth, godinaWidth, reziserWidth, similarityWidth);
         System.out.println("Ukupno preporučeno: " + recommendations.size() + " filmova");
-        System.out.println("\nNapomena: Sličnost se računa na osnovu:");
-        System.out.println("  • Žanr (50%) • Režiser (30%) • Godina (15%) • Naslov (5%)");
     }
     
-    /**
-     * Printa separator liniju za CBR tabelu
-     */
     private void printCbrSeparator(int... widths) {
         System.out.print("+");
         for (int width : widths) {
@@ -345,9 +285,6 @@ public class MenuManager {
         System.out.println();
     }
     
-    /**
-     * Printa jedan red CBR tabele - dodana kolona za žanr
-     */
     private void printCbrRow(String naslov, String zanr, String godina, String reziser, String similarity, int... widths) {
         System.out.printf("| %-" + widths[0] + "s | %-" + widths[1] + "s | %-" + 
                          widths[2] + "s | %-" + widths[3] + "s | %-" + widths[4] + "s |%n",
@@ -358,19 +295,13 @@ public class MenuManager {
                          truncate(similarity, widths[4]));
     }
     
-    /**
-     * Skraćuje text ako je duži od maksimalne širine
-     */
     private String truncate(String text, int maxWidth) {
         if (text.length() <= maxWidth) {
             return text;
         }
         return text.substring(0, maxWidth - 3) + "...";
     }
-    
-    /**
-     * Traži izbor filma od korisnika
-     */
+
     private int getMovieChoice(int maxMovies) {
         while (true) {
             System.out.print("\nIzaberite film (1-" + maxMovies + "): ");
@@ -386,10 +317,7 @@ public class MenuManager {
             }
         }
     }
-    
-    /**
-     * Čita izbor korisnika iz menija
-     */
+
     private int getMenuChoice(int min, int max) {
         while (true) {
             try {
@@ -404,10 +332,7 @@ public class MenuManager {
             }
         }
     }
-    
-    /**
-     * Traži unos žanra od korisnika
-     */
+
     private String getGenreInput() {
         while (true) {
             System.out.print("Unesite žanr filma: ");
@@ -419,10 +344,7 @@ public class MenuManager {
             System.out.println("Žanr ne može biti prazan. Molimo pokušajte ponovo.");
         }
     }
-    
-    /**
-     * Traži unos godine od korisnika
-     */
+
     private int getYearInput() {
         while (true) {
             System.out.print("Unesite godinu izdanja: ");
@@ -435,10 +357,7 @@ public class MenuManager {
             }
         }
     }
-    
-    /**
-     * Traži unos ocene za kriterijum
-     */
+
     private double getCriteriaInput(String criteriaName) {
         while (true) {
             System.out.print(criteriaName + " (1-10): ");
@@ -454,18 +373,12 @@ public class MenuManager {
             }
         }
     }
-    
-    /**
-     * Čeka korisnikov Enter za nastavak
-     */
+
     private void waitForEnter() {
         System.out.println("\nPritisnite Enter za nastavak...");
         scanner.nextLine();
     }
-    
-    /**
-     * Zatvara scanner resurse
-     */
+
     public void close() {
         if (scanner != null) {
             scanner.close();

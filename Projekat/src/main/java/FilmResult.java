@@ -1,17 +1,11 @@
-/**
- * Klasa koja predstavlja rezultat pretrage filma
- */
 public class FilmResult {
     private String naslov;
     private String godina;
     private String trajanje;
     private String budzet;
     private String reziser;
-    private String zanrovi; // dodano za sve žanrove
-    
-    /**
-     * Konstruktor za kreiranje film rezultata
-     */
+    private String zanrovi; 
+
     public FilmResult(String naslov, String godina, String trajanje, String budzet, String reziser, String zanrovi) {
         this.naslov = naslov;
         this.godina = godina;
@@ -21,7 +15,6 @@ public class FilmResult {
         this.zanrovi = zanrovi;
     }
     
-    // Getteri za pristup podacima
     public String getNaslov() { return naslov; }
     public String getGodina() { return godina; }
     public String getTrajanje() { return trajanje; }

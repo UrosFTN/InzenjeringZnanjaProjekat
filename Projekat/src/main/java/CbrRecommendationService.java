@@ -25,9 +25,6 @@ public class CbrRecommendationService {
     private Collection<CBRCase> cases;
     private NNConfig simConfig;
     
-    /**
-     * Konstruktor - inicijalizuje CBR sistem
-     */
     public CbrRecommendationService() {
         try {
             initializeRdfModel();
@@ -40,9 +37,6 @@ public class CbrRecommendationService {
         }
     }
     
-    /**
-     * Inicijalizuje RDF model iz TTL fajlova
-     */
     private void initializeRdfModel() {
         try {
             model = ModelFactory.createDefaultModel();
@@ -53,12 +47,8 @@ public class CbrRecommendationService {
         }
     }
     
-    /**
-     * Inicijalizuje jCOLIBRI CBR sistem
-     */
     private void initializeCbrSystem() {
         try {
-            // Kreira case kolekciju iz ontologije
             cases = createCasesFromOntology();
             
             // Inicijalizuje similarity config
@@ -111,9 +101,6 @@ public class CbrRecommendationService {
         return config;
     }
     
-    /**
-     * Učitava filmove iz ontologije i kreira MovieCase objekte
-     */
     private List<MovieCase> loadMoviesFromOntology() {
         List<MovieCase> movieCases = new ArrayList<>();
         
@@ -150,9 +137,8 @@ public class CbrRecommendationService {
                 Integer godina = parseYear(getCleanValue(solution, "godina"));
                 String reziser = buildDirectorName(solution);
                 
-                // Kreira MovieCase objekat
                 MovieCase movieCase = new MovieCase(filmUri, naslov, zanr, godina, reziser);
-                // Dodaj sve žanrove za prikaz
+
                 movieCase.setSviZanrovi(zanrovi);
                 movieCases.add(movieCase);
             }
@@ -164,47 +150,36 @@ public class CbrRecommendationService {
         
         return movieCases;
     }
-    
-    /**
-     * Traži slične filmove za zadati film
-     */
+
     public List<MovieRecommendation> findSimilarMovies(String selectedMovieId) {
         try {
-            // Pronađi query case
             CBRCase queryCase = findCaseById(selectedMovieId);
             if (queryCase == null) {
                 throw new IllegalArgumentException("Film sa ID " + selectedMovieId + " nije pronađen.");
             }
             
-            // Kreira CBR query objekat
             CBRQuery cbrQuery = new CBRQuery();
             cbrQuery.setDescription(queryCase.getDescription());
             
-            // Izvršava jCOLIBRI retrieve
             Collection<RetrievalResult> retrievalResults =
                 NNScoringMethod.evaluateSimilarity(cases, cbrQuery, simConfig);
             
-            // Selektuje top 5 rezultata (bez query case-a)
-            Collection<CBRCase> topCases = SelectCases.selectTopK(retrievalResults, 6); // +1 jer uključuje i query
+            Collection<CBRCase> topCases = SelectCases.selectTopK(retrievalResults, 6); 
             
-            // Konvertuje u preporuke - pronađi originaln-e retrieval results za selected cases
             List<MovieRecommendation> recommendations = new ArrayList<>();
             
             for (RetrievalResult result : retrievalResults) {
                 CBRCase resultCase = result.get_case();
                 
-                // Proveri da li je ovaj case u top k selection
                 if (topCases.contains(resultCase)) {
                     MovieCase movieCase = (MovieCase) resultCase.getDescription();
                     
-                    // Preskače query case
                     if (!movieCase.getId().equals(selectedMovieId)) {
                         double similarity = result.getEval();
                         MovieRecommendation recommendation = new MovieRecommendation(movieCase, similarity);
                         recommendations.add(recommendation);
                     }
                     
-                    // Ograniči na top 5
                     if (recommendations.size() >= 5) break;
                 }
             }
@@ -215,10 +190,7 @@ public class CbrRecommendationService {
             throw new RuntimeException("Greška pri CBR preporuci: " + e.getMessage());
         }
     }
-    
-    /**
-     * Dobija listu svih dostupnih filmova za izbor
-     */
+
     public List<MovieCase> getAllMovies() {
         List<MovieCase> allMovies = new ArrayList<>();
         
@@ -230,9 +202,6 @@ public class CbrRecommendationService {
         return allMovies;
     }
     
-    /**
-     * Pronalazi CBR case po ID-u
-     */
     private CBRCase findCaseById(String movieId) {
         for (CBRCase cbrCase : cases) {
             MovieCase movieCase = (MovieCase) cbrCase.getDescription();
@@ -243,9 +212,6 @@ public class CbrRecommendationService {
         return null;
     }
     
-    /**
-     * Čisti RDF vrednost od tipova podataka
-     */
     private String getCleanValue(QuerySolution solution, String varName) {
         if (solution.get(varName) != null) {
             String value = solution.get(varName).toString();
@@ -260,9 +226,6 @@ public class CbrRecommendationService {
         return "N/A";
     }
     
-    /**
-     * Parsira godinu iz stringa
-     */
     private Integer parseYear(String yearString) {
         try {
             return Integer.parseInt(yearString);
@@ -270,10 +233,7 @@ public class CbrRecommendationService {
             return 0;
         }
     }
-    
-    /**
-     * Gradi ime režisera od ime i prezime
-     */
+
     private String buildDirectorName(QuerySolution solution) {
         String ime = getCleanValue(solution, "reziserIme");
         String prezime = getCleanValue(solution, "reziserPrezime");
@@ -288,9 +248,6 @@ public class CbrRecommendationService {
         return "N/A";
     }
     
-    /**
-     * Inner klasa za CBR preporuke
-     */
     public static class MovieRecommendation {
         private final MovieCase movieCase;
         private final double similarity;

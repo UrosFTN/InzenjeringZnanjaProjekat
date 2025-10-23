@@ -5,39 +5,27 @@ import org.apache.jena.util.FileManager;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Servisna klasa za izvršavanje SPARQL upita nad filmskom ontologijom
- */
 public class SparqlQueryService {
     
     private Model model;
     private final String namespace = "http://www.iz-projekat/film-sema#";
-    
-    /**
-     * Konstruktor - učitava ontologiju iz TTL fajlova
-     */
+
     public SparqlQueryService() {
         initializeModel();
     }
     
-    /**
-     * Inicijalizuje RDF model učitavanjem seme i podataka
-     */
     private void initializeModel() {
         try {
             model = ModelFactory.createDefaultModel();
-            // Učitava šemu ontologije
             FileManager.get().readModel(model, "src/main/resources/film_sema.ttl", "TTL");
-            // Učitava podatke o filmovima
             FileManager.get().readModel(model, "src/main/resources/film_podaci.ttl", "TTL");
         } catch (Exception e) {
-            throw new RuntimeException("Greška pri učitavanju ontologije: " + e.getMessage());
+            throw new RuntimeException("Greska pri učitavanju ontologije: " + e.getMessage());
         }
     }
     
     /**
-     * Pretražuje filmove po žanru
-     * @param zanr naziv žanra za pretragu
+     * @param zanr naziv zanra za pretragu
      * @return lista rezultata pretrage
      */
     public List<FilmResult> searchByGenre(String zanr) {
@@ -61,7 +49,6 @@ public class SparqlQueryService {
     }
     
     /**
-     * Pretražuje filmove po žanru i godini izdanja
      * @param zanr naziv žanra za pretragu
      * @param godina godina izdanja filma
      * @return lista rezultata pretrage
@@ -89,7 +76,6 @@ public class SparqlQueryService {
     }
     
     /**
-     * Izvršava SPARQL upit i vraća rezultate
      * @param sparqlQuery SPARQL upit string
      * @return lista film rezultata
      */
@@ -101,7 +87,6 @@ public class SparqlQueryService {
             QueryExecution qe = QueryExecutionFactory.create(query, model);
             ResultSet resultSet = qe.execSelect();
             
-            // Obrađuje svaki rezultat upita
             while (resultSet.hasNext()) {
                 QuerySolution solution = resultSet.nextSolution();
                 
@@ -112,7 +97,6 @@ public class SparqlQueryService {
                 String reziser = buildDirectorName(solution);
                 String zanrovi = getStringValue(solution, "sviZanrovi");
                 
-                // Kreira rezultat sa prikupljenim podacima
                 FilmResult result = new FilmResult(naslov, godina, trajanje, budzet, reziser, zanrovi);
                 results.add(result);
             }
@@ -125,9 +109,6 @@ public class SparqlQueryService {
         return results;
     }
     
-    /**
-     * Izvlači string vrednost iz query solution-a
-     */
     private String getStringValue(QuerySolution solution, String varName) {
         if (solution.get(varName) != null) {
             String value = solution.get(varName).toString();
@@ -144,9 +125,6 @@ public class SparqlQueryService {
         return "N/A";
     }
     
-    /**
-     * Gradi ime režisera od ime i prezime
-     */
     private String buildDirectorName(QuerySolution solution) {
         String ime = getStringValue(solution, "reziserIme");
         String prezime = getStringValue(solution, "reziserPrezime");
