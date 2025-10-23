@@ -1,0 +1,88 @@
+@prefix : <http://www.iz-projekat/film-sema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://www.iz-projekat/film-sema> .
+
+<http://www.iz-projekat/film-sema> a owl:Ontology ;
+	rdfs:label "Filmska ontologija"@sr .
+
+########### KLASE (≈24) ###########
+:Film a owl:Class ; rdfs:label "Film"@sr .
+:Osoba a owl:Class ; rdfs:label "Osoba"@sr .
+:Glumac a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Glumac"@sr .
+:Reziser a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Režiser"@sr .
+:Scenarist a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Scenarist"@sr .
+:Producent a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Producent"@sr .
+:Kompozitor a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Kompozitor"@sr .
+:Snimatelj a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Snimatelj"@sr .
+:Montazer a owl:Class ; rdfs:subClassOf :Osoba ; rdfs:label "Montažer"@sr .
+:Studio a owl:Class ; rdfs:label "Studio"@sr .
+:Distributer a owl:Class ; rdfs:label "Distributer"@sr .
+:Zanr a owl:Class ; rdfs:label "Žanr"@sr .
+:Podzanr a owl:Class ; rdfs:subClassOf :Zanr ; rdfs:label "Podžanr"@sr .
+:Jezik a owl:Class ; rdfs:label "Jezik"@sr .
+:Drzava a owl:Class ; rdfs:label "Država"@sr .
+:Nagrada a owl:Class ; rdfs:label "Nagrada"@sr .
+:Festival a owl:Class ; rdfs:label "Festival"@sr .
+:Platforma a owl:Class ; rdfs:label "Platforma"@sr .
+:StrimingPlatforma a owl:Class ; rdfs:subClassOf :Platforma ; rdfs:label "Striming platforma"@sr .
+:Fransiza a owl:Class ; rdfs:label "Franšiza"@sr .
+:Lik a owl:Class ; rdfs:label "Lik"@sr .
+:Uloga a owl:Class ; rdfs:label "Uloga"@sr .
+:Ocjenjivanje a owl:Class ; rdfs:label "Ocjenjivanje"@sr .
+:Tehnologija a owl:Class ; rdfs:label "Tehnologija"@sr .
+
+########### OBJEKT SVOJSTVA (≈26+) ###########
+:imaZanr a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Zanr ; rdfs:label "ima žanr"@sr .
+:imaPodzanr a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Podzanr ; rdfs:label "ima podžanr"@sr .
+:pripadaFransizi a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Fransiza ; rdfs:label "pripada franšizi"@sr .
+:prikazanNaFestivalu a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Festival ; rdfs:label "prikazan na festivalu"@sr .
+:dostupanNa a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :StrimingPlatforma ; rdfs:label "dostupan na"@sr .
+:proizvedenoUStudiju a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Studio ; rdfs:label "proizvedeno u studiju"@sr .
+:izdao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Distributer ; rdfs:label "izdao"@sr .
+:izvorniJezik a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Jezik ; rdfs:label "izvorni jezik"@sr .
+:zemljaPorijekla a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Drzava ; rdfs:label "zemlja porijekla"@sr .
+:imaNastavak a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Film ; rdfs:label "ima nastavak"@sr .
+:imaPrethodnik a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Film ; rdfs:label "ima prethodnik"@sr .
+:osvojioNagradu a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Nagrada ; rdfs:label "osvojio nagradu"@sr .
+:nominovanZa a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Nagrada ; rdfs:label "nominovan za"@sr .
+:koristiTehnologiju a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Tehnologija ; rdfs:label "koristi tehnologiju"@sr .
+
+:rezirao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Reziser ; rdfs:label "režirao"@sr .
+:napisao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Scenarist ; rdfs:label "napisao"@sr .
+:producirao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Producent ; rdfs:label "producirao"@sr .
+:komponovao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Kompozitor ; rdfs:label "komponovao"@sr .
+:snimao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Snimatelj ; rdfs:label "snimao"@sr .
+:montirao a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Montazer ; rdfs:label "montirao"@sr .
+
+:glumi a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Glumac ; rdfs:label "glumi"@sr .
+:tumacLika a owl:ObjectProperty ; rdfs:domain :Uloga ; rdfs:range :Lik ; rdfs:label "tumači lika"@sr .
+:ulogaUFilmu a owl:ObjectProperty ; rdfs:domain :Uloga ; rdfs:range :Film ; rdfs:label "uloga u filmu"@sr .
+:ulogaGlumca a owl:ObjectProperty ; rdfs:domain :Uloga ; rdfs:range :Glumac ; rdfs:label "uloga glumca"@sr .
+:povezanLikom a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Lik ; rdfs:label "povezan likom"@sr .
+:ocjenjivanjeZa a owl:ObjectProperty ; rdfs:domain :Ocjenjivanje ; rdfs:range :Film ; rdfs:label "ocjenjivanje za"@sr .
+:ocijenio a owl:ObjectProperty ; rdfs:domain :Ocjenjivanje ; rdfs:range :Osoba ; rdfs:label "ocijenio"@sr .
+
+########### DATA SVOJSTVA (≈20) ###########
+:naslov a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "naslov"@sr .
+:izvorniNaslov a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "izvorni naslov"@sr .
+:godinaIzdanja a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:gYear ; rdfs:label "godina izdanja"@sr .
+:datumIzdanja a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:date ; rdfs:label "datum izdanja"@sr .
+:trajanjeMinuta a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:integer ; rdfs:label "trajanje (minuta)"@sr .
+:prosjecnaOcjena a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "prosječna ocjena"@sr .
+:brojOcjena a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:integer ; rdfs:label "broj ocjena"@sr .
+:budzetUSD a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "budžet (USD)"@sr .
+:zaradaUSD a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "zarada (USD)"@sr .
+:sinopsis a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "sinopsis"@sr .
+:imdbId a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "IMDb ID"@sr .
+:tmdbId a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "TMDb ID"@sr .
+:licnoIme a owl:DatatypeProperty ; rdfs:domain :Osoba ; rdfs:range xsd:string ; rdfs:label "lično ime"@sr .
+:prezime a owl:DatatypeProperty ; rdfs:domain :Osoba ; rdfs:range xsd:string ; rdfs:label "prezime"@sr .
+:godinaRodjenja a owl:DatatypeProperty ; rdfs:domain :Osoba ; rdfs:range xsd:gYear ; rdfs:label "godina rođenja"@sr .
+:umjetnickoIme a owl:DatatypeProperty ; rdfs:domain :Osoba ; rdfs:range xsd:string ; rdfs:label "umjetničko ime"@sr .
+:platformUrl a owl:DatatypeProperty ; rdfs:domain :StrimingPlatforma ; rdfs:range xsd:anyURI ; rdfs:label "URL platforme"@sr .
+:drzavniKod a owl:DatatypeProperty ; rdfs:domain :Drzava ; rdfs:range xsd:string ; rdfs:label "državni kod"@sr .
+:jezikKod a owl:DatatypeProperty ; rdfs:domain :Jezik ; rdfs:range xsd:string ; rdfs:label "jezički kod"@sr .
+:oznakaZanra a owl:DatatypeProperty ; rdfs:domain :Zanr ; rdfs:range xsd:string ; rdfs:label "oznaka žanra"@sr .

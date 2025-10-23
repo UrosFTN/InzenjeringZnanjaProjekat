@@ -1,0 +1,449 @@
+@prefix : <http://www.iz-projekat/film-sema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+########### ŽANROVI ###########
+:Akcija a :Zanr ; rdfs:label "Akcija"@sr .
+:Drama a :Zanr ; rdfs:label "Drama"@sr .
+:Komedija a :Zanr ; rdfs:label "Komedija"@sr .
+:Horor a :Zanr ; rdfs:label "Horor"@sr .
+:SciFi a :Zanr ; rdfs:label "Naučna fantastika"@sr .
+:Triler a :Zanr ; rdfs:label "Triler"@sr .
+:Romantika a :Zanr ; rdfs:label "Romantika"@sr .
+:Avantura a :Zanr ; rdfs:label "Avantura"@sr .
+:Animirani a :Zanr ; rdfs:label "Animirani"@sr .
+:Western a :Zanr ; rdfs:label "Western"@sr .
+
+########### JEZIK ###########
+:Engleski a :Jezik ; rdfs:label "Engleski"@sr ; :jezikKod "en" .
+:Srpski a :Jezik ; rdfs:label "Srpski"@sr ; :jezikKod "sr" .
+:Italijanski a :Jezik ; rdfs:label "Italijanski"@sr ; :jezikKod "it" .
+:Francuski a :Jezik ; rdfs:label "Francuski"@sr ; :jezikKod "fr" .
+:Nemacki a :Jezik ; rdfs:label "Nemački"@sr ; :jezikKod "de" .
+
+########### DRŽAVE ###########
+:USA a :Drzava ; rdfs:label "Sjedinjene Američke Države"@sr ; :drzavniKod "US" .
+:Srbija a :Drzava ; rdfs:label "Srbija"@sr ; :drzavniKod "RS" .
+:Italija a :Drzava ; rdfs:label "Italija"@sr ; :drzavniKod "IT" .
+:Francuska a :Drzava ; rdfs:label "Francuska"@sr ; :drzavniKod "FR" .
+:Nemacka a :Drzava ; rdfs:label "Nemačka"@sr ; :drzavniKod "DE" .
+
+########### STUDIJI ###########
+:WarnerBros a :Studio ; rdfs:label "Warner Bros."@sr .
+:Universal a :Studio ; rdfs:label "Universal Pictures"@sr .
+:Paramount a :Studio ; rdfs:label "Paramount Pictures"@sr .
+:Disney a :Studio ; rdfs:label "Walt Disney Studios"@sr .
+:Sony a :Studio ; rdfs:label "Sony Pictures"@sr .
+:MGM a :Studio ; rdfs:label "Metro-Goldwyn-Mayer"@sr .
+
+########### OSOBE ###########
+:ChristopherNolan a :Reziser ; :licnoIme "Christopher" ; :prezime "Nolan" ; :godinaRodjenja "1970"^^xsd:gYear .
+:StevenSpielberg a :Reziser ; :licnoIme "Steven" ; :prezime "Spielberg" ; :godinaRodjenja "1946"^^xsd:gYear .
+:QuentinTarantino a :Reziser ; :licnoIme "Quentin" ; :prezime "Tarantino" ; :godinaRodjenja "1963"^^xsd:gYear .
+:MartinScorsese a :Reziser ; :licnoIme "Martin" ; :prezime "Scorsese" ; :godinaRodjenja "1942"^^xsd:gYear .
+:FrancisCoppola a :Reziser ; :licnoIme "Francis Ford" ; :prezime "Coppola" ; :godinaRodjenja "1939"^^xsd:gYear .
+:StanleyKubrick a :Reziser ; :licnoIme "Stanley" ; :prezime "Kubrick" ; :godinaRodjenja "1928"^^xsd:gYear .
+:RidleyScott a :Reziser ; :licnoIme "Ridley" ; :prezime "Scott" ; :godinaRodjenja "1937"^^xsd:gYear .
+:JamesCameron a :Reziser ; :licnoIme "James" ; :prezime "Cameron" ; :godinaRodjenja "1954"^^xsd:gYear .
+:CohenBrothers a :Reziser ; :licnoIme "Joel & Ethan" ; :prezime "Coen" ; :godinaRodjenja "1954"^^xsd:gYear .
+:DavidFincher a :Reziser ; :licnoIme "David" ; :prezime "Fincher" ; :godinaRodjenja "1962"^^xsd:gYear .
+
+:LeonardoDiCaprio a :Glumac ; :licnoIme "Leonardo" ; :prezime "DiCaprio" ; :godinaRodjenja "1974"^^xsd:gYear .
+:AlPacino a :Glumac ; :licnoIme "Al" ; :prezime "Pacino" ; :godinaRodjenja "1940"^^xsd:gYear .
+:RobertDeNiro a :Glumac ; :licnoIme "Robert" ; :prezime "De Niro" ; :godinaRodjenja "1943"^^xsd:gYear .
+:TomHanks a :Glumac ; :licnoIme "Tom" ; :prezime "Hanks" ; :godinaRodjenja "1956"^^xsd:gYear .
+:KeanuReeves a :Glumac ; :licnoIme "Keanu" ; :prezime "Reeves" ; :godinaRodjenja "1964"^^xsd:gYear .
+:JohnTravolta a :Glumac ; :licnoIme "John" ; :prezime "Travolta" ; :godinaRodjenja "1954"^^xsd:gYear .
+:SamuelJackson a :Glumac ; :licnoIme "Samuel L." ; :prezime "Jackson" ; :godinaRodjenja "1948"^^xsd:gYear .
+:BradPitt a :Glumac ; :licnoIme "Brad" ; :prezime "Pitt" ; :godinaRodjenja "1963"^^xsd:gYear .
+:MorganFreeman a :Glumac ; :licnoIme "Morgan" ; :prezime "Freeman" ; :godinaRodjenja "1937"^^xsd:gYear .
+:AnthonyHopkins a :Glumac ; :licnoIme "Anthony" ; :prezime "Hopkins" ; :godinaRodjenja "1937"^^xsd:gYear .
+
+########### FILMOVI ###########
+
+# The Matrix (1999)
+:TheMatrix a :Film ;
+    :naslov "The Matrix" ;
+    :izvorniNaslov "The Matrix" ;
+    :godinaIzdanja "1999"^^xsd:gYear ;
+    :trajanjeMinuta 136 ;
+    :budzetUSD 63000000 ;
+    :zaradaUSD 467500000 ;
+    :imaZanr :SciFi ;
+    :imaZanr :Akcija ;
+    :rezirao :ChristopherNolan ;
+    :glumi :KeanuReeves ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Pulp Fiction (1994)
+:PulpFiction a :Film ;
+    :naslov "Pulp Fiction" ;
+    :izvorniNaslov "Pulp Fiction" ;
+    :godinaIzdanja "1994"^^xsd:gYear ;
+    :trajanjeMinuta 154 ;
+    :budzetUSD 8000000 ;
+    :zaradaUSD 214200000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Triler ;
+    :rezirao :QuentinTarantino ;
+    :glumi :JohnTravolta ;
+    :glumi :SamuelJackson ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :MGM .
+
+# The Godfather (1972)
+:TheGodfather a :Film ;
+    :naslov "Kum" ;
+    :izvorniNaslov "The Godfather" ;
+    :godinaIzdanja "1972"^^xsd:gYear ;
+    :trajanjeMinuta 175 ;
+    :budzetUSD 6000000 ;
+    :zaradaUSD 287000000 ;
+    :imaZanr :Drama ;
+    :rezirao :FrancisCoppola ;
+    :glumi :AlPacino ;
+    :glumi :RobertDeNiro ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Paramount .
+
+# Inception (2010)
+:Inception a :Film ;
+    :naslov "Početak" ;
+    :izvorniNaslov "Inception" ;
+    :godinaIzdanja "2010"^^xsd:gYear ;
+    :trajanjeMinuta 148 ;
+    :budzetUSD 160000000 ;
+    :zaradaUSD 836800000 ;
+    :imaZanr :SciFi ;
+    :imaZanr :Triler ;
+    :rezirao :ChristopherNolan ;
+    :glumi :LeonardoDiCaprio ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Forrest Gump (1994)
+:ForrestGump a :Film ;
+    :naslov "Forrest Gump" ;
+    :izvorniNaslov "Forrest Gump" ;
+    :godinaIzdanja "1994"^^xsd:gYear ;
+    :trajanjeMinuta 142 ;
+    :budzetUSD 55000000 ;
+    :zaradaUSD 678200000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Komedija ;
+    :rezirao :StevenSpielberg ;
+    :glumi :TomHanks ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Paramount .
+
+# Goodfellas (1990)
+:Goodfellas a :Film ;
+    :naslov "Dobri momci" ;
+    :izvorniNaslov "Goodfellas" ;
+    :godinaIzdanja "1990"^^xsd:gYear ;
+    :trajanjeMinuta 146 ;
+    :budzetUSD 25000000 ;
+    :zaradaUSD 46800000 ;
+    :imaZanr :Drama ;
+    :rezirao :MartinScorsese ;
+    :glumi :RobertDeNiro ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Fight Club (1999)
+:FightClub a :Film ;
+    :naslov "Klub boraca" ;
+    :izvorniNaslov "Fight Club" ;
+    :godinaIzdanja "1999"^^xsd:gYear ;
+    :trajanjeMinuta 139 ;
+    :budzetUSD 63000000 ;
+    :zaradaUSD 101200000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Triler ;
+    :rezirao :DavidFincher ;
+    :glumi :BradPitt ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Sony .
+
+# The Silence of the Lambs (1991)
+:SilenceOfLambs a :Film ;
+    :naslov "Tišina jaganjaca" ;
+    :izvorniNaslov "The Silence of the Lambs" ;
+    :godinaIzdanja "1991"^^xsd:gYear ;
+    :trajanjeMinuta 118 ;
+    :budzetUSD 19000000 ;
+    :zaradaUSD 272700000 ;
+    :imaZanr :Horor ;
+    :imaZanr :Triler ;
+    :rezirao :StevenSpielberg ;
+    :glumi :AnthonyHopkins ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :MGM .
+
+# The Shawshank Redemption (1994)
+:ShawshankRedemption a :Film ;
+    :naslov "Iskupljenje u Šošenku" ;
+    :izvorniNaslov "The Shawshank Redemption" ;
+    :godinaIzdanja "1994"^^xsd:gYear ;
+    :trajanjeMinuta 142 ;
+    :budzetUSD 25000000 ;
+    :zaradaUSD 16300000 ;
+    :imaZanr :Drama ;
+    :rezirao :DavidFincher ;
+    :glumi :MorganFreeman ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Universal .
+
+# Titanic (1997)
+:Titanic a :Film ;
+    :naslov "Titanik" ;
+    :izvorniNaslov "Titanic" ;
+    :godinaIzdanja "1997"^^xsd:gYear ;
+    :trajanjeMinuta 195 ;
+    :budzetUSD 200000000 ;
+    :zaradaUSD 2187000000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Romantika ;
+    :rezirao :JamesCameron ;
+    :glumi :LeonardoDiCaprio ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Paramount .
+
+# Blade Runner (1982)
+:BladeRunner a :Film ;
+    :naslov "Blade Runner" ;
+    :izvorniNaslov "Blade Runner" ;
+    :godinaIzdanja "1982"^^xsd:gYear ;
+    :trajanjeMinuta 117 ;
+    :budzetUSD 28000000 ;
+    :zaradaUSD 33800000 ;
+    :imaZanr :SciFi ;
+    :imaZanr :Triler ;
+    :rezirao :RidleyScott ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# 2001: A Space Odyssey (1968)
+:SpaceOdyssey a :Film ;
+    :naslov "2001: Odiseja u svemiru" ;
+    :izvorniNaslov "2001: A Space Odyssey" ;
+    :godinaIzdanja "1968"^^xsd:gYear ;
+    :trajanjeMinuta 149 ;
+    :budzetUSD 10500000 ;
+    :zaradaUSD 146700000 ;
+    :imaZanr :SciFi ;
+    :rezirao :StanleyKubrick ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :MGM .
+
+# No Country for Old Men (2007)
+:NoCountryForOldMen a :Film ;
+    :naslov "Nema zemlje za stare" ;
+    :izvorniNaslov "No Country for Old Men" ;
+    :godinaIzdanja "2007"^^xsd:gYear ;
+    :trajanjeMinuta 122 ;
+    :budzetUSD 25000000 ;
+    :zaradaUSD 171600000 ;
+    :imaZanr :Triler ;
+    :imaZanr :Drama ;
+    :rezirao :CohenBrothers ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Paramount .
+
+# Scarface (1983)
+:Scarface a :Film ;
+    :naslov "Lice sa ožiljkom" ;
+    :izvorniNaslov "Scarface" ;
+    :godinaIzdanja "1983"^^xsd:gYear ;
+    :trajanjeMinuta 170 ;
+    :budzetUSD 25000000 ;
+    :zaradaUSD 66200000 ;
+    :imaZanr :Drama ;
+    :rezirao :MartinScorsese ;
+    :glumi :AlPacino ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Universal .
+
+# The Big Lebowski (1998)
+:BigLebowski a :Film ;
+    :naslov "Veliki Lebovski" ;
+    :izvorniNaslov "The Big Lebowski" ;
+    :godinaIzdanja "1998"^^xsd:gYear ;
+    :trajanjeMinuta 117 ;
+    :budzetUSD 15000000 ;
+    :zaradaUSD 17500000 ;
+    :imaZanr :Komedija ;
+    :rezirao :CohenBrothers ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Universal .
+
+# Casablanca (1942)
+:Casablanca a :Film ;
+    :naslov "Kazablanka" ;
+    :izvorniNaslov "Casablanca" ;
+    :godinaIzdanja "1942"^^xsd:gYear ;
+    :trajanjeMinuta 102 ;
+    :budzetUSD 878000 ;
+    :zaradaUSD 3700000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Romantika ;
+    :rezirao :StevenSpielberg ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Se7en (1995)
+:Seven a :Film ;
+    :naslov "Sedam" ;
+    :izvorniNaslov "Se7en" ;
+    :godinaIzdanja "1995"^^xsd:gYear ;
+    :trajanjeMinuta 127 ;
+    :budzetUSD 33000000 ;
+    :zaradaUSD 327300000 ;
+    :imaZanr :Triler ;
+    :imaZanr :Horor ;
+    :rezirao :DavidFincher ;
+    :glumi :BradPitt ;
+    :glumi :MorganFreeman ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Sony .
+
+# The Dark Knight (2008)
+:DarkKnight a :Film ;
+    :naslov "Mračni vitez" ;
+    :izvorniNaslov "The Dark Knight" ;
+    :godinaIzdanja "2008"^^xsd:gYear ;
+    :trajanjeMinuta 152 ;
+    :budzetUSD 185000000 ;
+    :zaradaUSD 1005000000 ;
+    :imaZanr :Akcija ;
+    :imaZanr :Drama ;
+    :rezirao :ChristopherNolan ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Citizen Kane (1941)
+:CitizenKane a :Film ;
+    :naslov "Građanin Kejn" ;
+    :izvorniNaslov "Citizen Kane" ;
+    :godinaIzdanja "1941"^^xsd:gYear ;
+    :trajanjeMinuta 119 ;
+    :budzetUSD 839000 ;
+    :zaradaUSD 1600000 ;
+    :imaZanr :Drama ;
+    :rezirao :StevenSpielberg ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Universal .
+
+# Interstellar (2014)
+:Interstellar a :Film ;
+    :naslov "Međuzvezdani" ;
+    :izvorniNaslov "Interstellar" ;
+    :godinaIzdanja "2014"^^xsd:gYear ;
+    :trajanjeMinuta 169 ;
+    :budzetUSD 165000000 ;
+    :zaradaUSD 677500000 ;
+    :imaZanr :SciFi ;
+    :imaZanr :Drama ;
+    :rezirao :ChristopherNolan ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .
+
+# Taxi Driver (1976)
+:TaxiDriver a :Film ;
+    :naslov "Taksi vozač" ;
+    :izvorniNaslov "Taxi Driver" ;
+    :godinaIzdanja "1976"^^xsd:gYear ;
+    :trajanjeMinuta 114 ;
+    :budzetUSD 1300000 ;
+    :zaradaUSD 28300000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Triler ;
+    :rezirao :MartinScorsese ;
+    :glumi :RobertDeNiro ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Sony .
+
+# Once Upon a Time in the West (1968)
+:OnceUponTimeWest a :Film ;
+    :naslov "Bilo jednom na Zapadu" ;
+    :izvorniNaslov "Once Upon a Time in the West" ;
+    :godinaIzdanja "1968"^^xsd:gYear ;
+    :trajanjeMinuta 165 ;
+    :budzetUSD 5000000 ;
+    :zaradaUSD 5300000 ;
+    :imaZanr :Western ;
+    :imaZanr :Drama ;
+    :rezirao :RidleyScott ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Paramount .
+
+# Apocalypse Now (1979)
+:ApocalypseNow a :Film ;
+    :naslov "Apokalipsa sada" ;
+    :izvorniNaslov "Apocalypse Now" ;
+    :godinaIzdanja "1979"^^xsd:gYear ;
+    :trajanjeMinuta 147 ;
+    :budzetUSD 31000000 ;
+    :zaradaUSD 150000000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Akcija ;
+    :rezirao :FrancisCoppola ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Universal .
+
+# Alien (1979)
+:Alien a :Film ;
+    :naslov "Vanzemaljac" ;
+    :izvorniNaslov "Alien" ;
+    :godinaIzdanja "1979"^^xsd:gYear ;
+    :trajanjeMinuta 117 ;
+    :budzetUSD 11000000 ;
+    :zaradaUSD 104900000 ;
+    :imaZanr :SciFi ;
+    :imaZanr :Horor ;
+    :rezirao :RidleyScott ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :Sony .
+
+# The Departed (2006)
+:Departed a :Film ;
+    :naslov "Pokojnici" ;
+    :izvorniNaslov "The Departed" ;
+    :godinaIzdanja "2006"^^xsd:gYear ;
+    :trajanjeMinuta 151 ;
+    :budzetUSD 90000000 ;
+    :zaradaUSD 291500000 ;
+    :imaZanr :Drama ;
+    :imaZanr :Triler ;
+    :rezirao :MartinScorsese ;
+    :glumi :LeonardoDiCaprio ;
+    :izvorniJezik :Engleski ;
+    :zemljaPorijekla :USA ;
+    :proizvedenoUStudiju :WarnerBros .

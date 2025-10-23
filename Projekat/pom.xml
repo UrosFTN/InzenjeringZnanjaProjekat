@@ -14,4 +14,31 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <!-- Apache Jena Core for RDF models -->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+        
+        <!-- Apache Jena ARQ for SPARQL queries -->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+        
+        <!-- jFuzzyLogic for fuzzy logic evaluation - local JAR -->
+        <dependency>
+            <groupId>net.sourceforge.jfuzzylogic</groupId>
+            <artifactId>jFuzzyLogic</artifactId>
+            <version>1.2.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jFuzzyLogic.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+   
+
 </project>
