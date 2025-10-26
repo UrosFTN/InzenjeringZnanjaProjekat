@@ -12,15 +12,13 @@ public class FuzzyEvaluationService {
 
     private void initializeFuzzySystem() {
         try {
-            // Učitava FCL fajl
             String fclFile = "src/main/resources/film_fuzzy.fcl";
             fis = FIS.load(fclFile, true);
             
             if (fis == null) {
                 throw new RuntimeException("Greška pri učitavanju FCL fajla: " + fclFile);
             }
-            
-            // Dobija function block
+
             functionBlock = fis.getFunctionBlock("film_kvalitet");
             
             if (functionBlock == null) {
@@ -89,14 +87,6 @@ public class FuzzyEvaluationService {
         public FuzzyResult(double numericValue, String category) {
             this.numericValue = numericValue;
             this.category = category;
-        }
-        
-        public double getNumericValue() {
-            return numericValue;
-        }
-        
-        public String getCategory() {
-            return category;
         }
  
         public String getFormattedResult() {

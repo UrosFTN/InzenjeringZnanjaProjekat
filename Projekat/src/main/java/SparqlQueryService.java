@@ -23,11 +23,7 @@ public class SparqlQueryService {
             throw new RuntimeException("Greska pri učitavanju ontologije: " + e.getMessage());
         }
     }
-    
-    /**
-     * @param zanr naziv zanra za pretragu
-     * @return lista rezultata pretrage
-     */
+
     public List<FilmResult> searchByGenre(String zanr) {
         String sparqlQuery = 
             "PREFIX : <" + namespace + ">" +
@@ -47,12 +43,7 @@ public class SparqlQueryService {
         
         return executeQuery(sparqlQuery);
     }
-    
-    /**
-     * @param zanr naziv žanra za pretragu
-     * @param godina godina izdanja filma
-     * @return lista rezultata pretrage
-     */
+
     public List<FilmResult> searchByGenreAndYear(String zanr, int godina) {
         String sparqlQuery = 
             "PREFIX : <" + namespace + ">" +
@@ -74,11 +65,7 @@ public class SparqlQueryService {
         
         return executeQuery(sparqlQuery);
     }
-    
-    /**
-     * @param sparqlQuery SPARQL upit string
-     * @return lista film rezultata
-     */
+
     private List<FilmResult> executeQuery(String sparqlQuery) {
         List<FilmResult> results = new ArrayList<>();
         

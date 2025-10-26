@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * CBR servis za preporučivanje sličnih filmova koristeći jCOLIBRI
- */
 public class CbrRecommendationService {
     
     private Model model;
@@ -29,10 +26,10 @@ public class CbrRecommendationService {
         try {
             initializeRdfModel();
             initializeCbrSystem();
-            System.out.println("✓ CBR sistem uspešno inicijalizovan sa " + 
+            System.out.println("CBR sistem uspešno inicijalizovan sa " + 
                              cases.size() + " filmova");
         } catch (Exception e) {
-            System.err.println("✗ Greška pri inicijalizaciji CBR sistema: " + e.getMessage());
+            System.err.println("Greška pri inicijalizaciji CBR sistema: " + e.getMessage());
             throw e;
         }
     }
@@ -51,7 +48,6 @@ public class CbrRecommendationService {
         try {
             cases = createCasesFromOntology();
             
-            // Inicijalizuje similarity config
             simConfig = createSimilarityConfig();
             
         } catch (Exception e) {
@@ -59,16 +55,11 @@ public class CbrRecommendationService {
         }
     }
     
-    /**
-     * Kreira case kolekciju iz RDF ontologije
-     */
     private Collection<CBRCase> createCasesFromOntology() {
         List<MovieCase> movieCases = loadMoviesFromOntology();
         
-        // Kreira jCOLIBRI case kolekciju
         Collection<CBRCase> cbrCases = new ArrayList<>();
         
-        // Dodaj case-ove u kolekciju
         for (MovieCase movieCase : movieCases) {
             CBRCase cbrCase = new CBRCase();
             cbrCase.setDescription((CaseComponent) movieCase);
@@ -78,14 +69,10 @@ public class CbrRecommendationService {
         return cbrCases;
     }
     
-    /**
-     * Kreira NNConfig za similarity računanje
-     */
     private NNConfig createSimilarityConfig() {
         NNConfig config = new NNConfig();
         config.setDescriptionSimFunction(new Average());
         
-        // Konfiguracija similarity funkcija i težina
         config.addMapping(new Attribute("zanr", MovieCase.class), new Equal());
         config.setWeight(new Attribute("zanr", MovieCase.class), 0.5);
         
@@ -132,7 +119,6 @@ public class CbrRecommendationService {
                 String filmUri = solution.get("film").toString();
                 String naslov = getCleanValue(solution, "naslov");
                 String zanrovi = getCleanValue(solution, "zanrovi");
-                // Uzmi prvi žanr za CBR similarity, ali sačuvaj sve za prikaz
                 String zanr = zanrovi.contains("|") ? zanrovi.split("\\|")[0] : zanrovi;
                 Integer godina = parseYear(getCleanValue(solution, "godina"));
                 String reziser = buildDirectorName(solution);
